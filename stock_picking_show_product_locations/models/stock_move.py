@@ -16,7 +16,8 @@ class StockMove(models.Model):
 
         quants = self.env['stock.quant'].search([
             ('product_id', '=', self.product_id.id),
-            ('location_id.usage', '=', 'internal')
+            ('location_id.usage', '=', 'internal'),
+            ('company_id', '=', self.env.user.company_id.id)
         ])
 
         self.locations_with_product = quants
