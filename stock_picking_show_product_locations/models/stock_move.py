@@ -32,8 +32,8 @@ class StockMove(models.Model):
                 and location.location_id:
             location = self.location_id.location_id
 
-        # if not location.parent_left or not location.parent_right:
-        #     return
+        if not location.parent_left or not location.parent_right:
+            return
 
         self.env.cr.execute('''
             SELECT q.id FROM stock_quant q
@@ -41,6 +41,7 @@ class StockMove(models.Model):
             WHERE q.product_id = %s
             AND l.parent_left >= %s
             AND l.parent_right <= %s
+            AND l.usage = 'internal'
         ''', (self.product_id.id, location.parent_left, location.parent_right))
 
         result = [row[0] for row in self.env.cr.fetchall()]
@@ -48,7 +49,7 @@ class StockMove(models.Model):
         self.locations_with_product = result
 
     locations_with_product = fields.One2many(
-        string='Locations Of The Product',
+        string='Internal Locations Of The Product',
         readonly=True,
         comodel_name='stock.quant',
         store=False,
