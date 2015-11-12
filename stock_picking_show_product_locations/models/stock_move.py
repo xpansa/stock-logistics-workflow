@@ -14,16 +14,12 @@ class StockMove(models.Model):
         if not self.product_id:
             return
 
-        self.env.cr.execute('''
-            SELECT q.id FROM stock_quant q
-            INNER JOIN stock_location l ON q.location_id = l.id
-            WHERE q.product_id = %s
-            AND l.usage = 'internal'
-        ''', (self.product_id.id,))
+        quants = self.env['stock.quant'].search([
+            ('product_id', '=', self.product_id.id),
+            ('location_id.usage', '=', 'internal')
+        ])
 
-        result = [row[0] for row in self.env.cr.fetchall()]
-
-        self.locations_with_product = result
+        self.locations_with_product = quants
 
     locations_with_product = fields.One2many(
         string='Internal Locations Of The Product',
