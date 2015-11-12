@@ -9,7 +9,7 @@
             <field name="inherit_id" ref="stock.view_move_picking_form"/>
             <field name="arch" type="xml">
                 <group string="Locations" position="after">
-                    <group string="Locations Of The Product" groups="stock.group_locations">
+                    <group string="Internal Locations Of The Product" groups="stock.group_locations">
                         <field name="locations_with_product" nolabel="1">
                             <tree>
                                 <field name="location_id"/>
