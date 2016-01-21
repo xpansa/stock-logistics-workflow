@@ -5,17 +5,13 @@
 {
     "name": "Product Locations in Stock Picking",
     "summary": "Implements a list of product locations in stock picking form",
-    "version": "8.0.1.0.0",
+    "version": "1.0.0",
     "category": "Uncategorized",
     "website": "https://xpansa.com",
     "author": "Xpansa Group",
-    "license": "AGPL-3",
+    'license': 'LGPL-3',
     "application": False,
     "installable": True,
-    "depends": [
-        "stock",
-    ],
-    "data": [
-        'views/stock_move.xml',
-    ],
+    "depends": ["stock"],
+    "data": ['views/stock_move.xml'],
 }

@@ -3,15 +3,35 @@
 <openerp>
     <data>
 
+
         <record id="stock_move_view_form" model="ir.ui.view">
             <field name="name">stock.move.form</field>
             <field name="model">stock.move</field>
             <field name="inherit_id" ref="stock.view_move_picking_form"/>
             <field name="arch" type="xml">
-                <group string="Locations" position="after">
+                <xpath expr="//group[1]" position="inside">
                     <group string="Internal Locations Of The Product" groups="stock.group_locations">
                         <field name="locations_with_product" nolabel="1">
-                            <tree>
+                            <tree string="Locations With Product">
+                                <field name="location_id"/>
+                                <field name="qty"/>
+                                <field name="owner_id" groups="stock.group_tracking_owner"/>
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_move_view_form_next" model="ir.ui.view">
+            <field name="name">stock.move.form.next</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+                <group name="quants_grp" position="before">
+                    <group string="Internal Locations Of The Product" groups="stock.group_locations" colspan="4">
+                        <field name="locations_with_product" nolabel="1">
+                            <tree string="Locations With Product">
                                 <field name="location_id"/>
                                 <field name="qty"/>
                                 <field name="owner_id" groups="stock.group_tracking_owner"/>
